@@ -6,8 +6,12 @@ import {
   platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 
-// Inicializar el entorno de testing de Angular
+// Primero, inicializar el entorno de testing de Angular
+getTestBed().resetTestEnvironment();
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting()
+  platformBrowserDynamicTesting(),
+  {
+    teardown: { destroyAfterEach: true }
+  }
 );
