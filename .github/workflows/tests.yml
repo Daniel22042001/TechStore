@@ -7,8 +7,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-      - run: npm ci
-      - run: ng test --watch=false --browsers=ChromeHeadless
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm ci
+      - name: Run tests
+        working-directory: ./frontend
+        run: npx ng test --watch=false --browsers=ChromeHeadless
       
   test-springboot:
     runs-on: ubuntu-latest
@@ -17,4 +23,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           java-version: '17'
-      - run: mvn test
+          distribution: 'temurin'
+      - name: Run tests
+        working-directory: ./backend
+        run: mvn test
